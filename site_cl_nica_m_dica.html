@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Médica Vida & Saúde</title>
+    <!-- Tailwind CSS para estilização e responsividade -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- HEADER GLOBAL COM IMAGENS DINÂMICAS POR PÁGINA -->
+    <header class="relative bg-teal-700 text-white shadow-lg overflow-hidden">
+        <!-- Banner Página Principal -->
+        <div id="header-home" class="header-banner min-h-[220px] sm:min-h-[280px] bg-gradient-to-r from-teal-800 to-teal-600 flex flex-col justify-center items-center text-center p-6 relative">
+            <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <i class="fa-solid font-hospital text-5xl mb-3 text-teal-200"></i>
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight">Clínica Vida & Saúde</h1>
+            <p class="mt-2 text-teal-100 text-base sm:text-lg max-w-2xl">Cuidando de você e da sua família com excelência e humanização.</p>
+        </div>
+
+        <!-- Banner Sobre a Clínica -->
+        <div id="header-sobre" class="header-banner hidden min-h-[220px] sm:min-h-[280px] bg-gradient-to-r from-cyan-800 to-teal-700 flex flex-col justify-center items-center text-center p-6 relative">
+            <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <i class="fa-solid fa-users-between-lines text-5xl mb-3 text-cyan-200"></i>
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight">Sobre Nossas Instalações</h1>
+            <p class="mt-2 text-cyan-100 text-base sm:text-lg max-w-2xl">Mais de 15 anos de tradição, inovação e compromisso médico.</p>
+        </div>
+
+        <!-- Banner Horário de Atendimento -->
+        <div id="header-horarios" class="header-banner hidden min-h-[220px] sm:min-h-[280px] bg-gradient-to-r from-emerald-800 to-teal-700 flex flex-col justify-center items-center text-center p-6 relative">
+            <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <i class="fa-regular fa-clock text-5xl mb-3 text-emerald-200"></i>
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight">Horários & Serviços</h1>
+            <p class="mt-2 text-emerald-100 text-base sm:text-lg max-w-2xl">Confira nossa grade de atendimento e especialidades médicas.</p>
+        </div>
+
+        <!-- Banner Contato -->
+        <div id="header-contato" class="header-banner hidden min-h-[220px] sm:min-h-[280px] bg-gradient-to-r from-slate-800 to-teal-800 flex flex-col justify-center items-center text-center p-6 relative">
+            <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <i class="fa-solid fa-headset text-5xl mb-3 text-teal-300"></i>
+            <h1 class="text-3xl sm:text-5xl font-bold tracking-tight">Fale Conosco</h1>
+            <p class="mt-2 text-slate-200 text-base sm:text-lg max-w-2xl">Estamos à disposição para agendamentos e dúvidas.</p>
+        </div>
+    </header>
+
+    <!-- NAVEGAÇÃO / MENU PRINCIPAL -->
+    <nav class="bg-teal-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center md:justify-center">
+                <!-- Menu Mobile Toggle -->
+                <div class="md:hidden py-3 font-semibold text-teal-200 flex items-center gap-2">
+                    <i class="fa-solid fa-bars"></i> Menu de Navegação
+                </div>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-teal-200 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+
+                <!-- Links de Navegação -->
+                <ul id="nav-menu" class="hidden md:flex flex-col md:flex-row w-full md:w-auto text-center font-medium">
+                    <li>
+                        <button onclick="navigateTo('home')" id="btn-home" class="nav-btn active w-full px-5 py-3.5 hover:bg-teal-800 border-b-2 border-amber-400 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-house text-sm"></i> Página Principal
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="navigateTo('sobre')" id="btn-sobre" class="nav-btn w-full px-5 py-3.5 hover:bg-teal-800 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-info text-sm"></i> Sobre a Clínica
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="navigateTo('horarios')" id="btn-horarios" class="nav-btn w-full px-5 py-3.5 hover:bg-teal-800 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-sm"></i> Horário de Atendimento
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="navigateTo('contato')" id="btn-contato" class="nav-btn w-full px-5 py-3.5 hover:bg-teal-800 border-b-2 border-transparent transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-envelope text-sm"></i> Contato
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (CONTENT) -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- 1. PÁGINA PRINCIPAL -->
+        <section id="page-home" class="page-section active space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 border-b pb-3 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-heart-pulse text-teal-600"></i> Bem-vindo à Clínica Vida & Saúde
+                </h2>
+                <p class="text-slate-600 leading-relaxed text-lg mb-6">
+                    A <strong class="text-teal-900">Clínica Vida & Saúde</strong> é referência em prestação de serviços médicos integrados, combinando alta tecnologia, instalações modernas e uma equipe multidisciplinar acolhedora. Nosso foco é promover bem-estar e saúde preventiva para todas as idades.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 my-8">
+                    <div class="p-5 bg-teal-50/60 rounded-lg border border-teal-100 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-teal-600 text-white rounded-lg flex items-center justify-center mb-3 text-xl">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg text-teal-900">Médicos Especialistas</h3>
+                        <p class="text-slate-600 text-sm mt-1">Corpo clínico qualificado e preparado para atendimentos humanizados e precisos.</p>
+                    </div>
+
+                    <div class="p-5 bg-teal-50/60 rounded-lg border border-teal-100 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-teal-600 text-white rounded-lg flex items-center justify-center mb-3 text-xl">
+                            <i class="fa-solid fa-stethoscope"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg text-teal-900">Exames & Check-ups</h3>
+                        <p class="text-slate-600 text-sm mt-1">Infraestrutura completa para diagnósticos rápidos e precisos no mesmo local.</p>
+                    </div>
+
+                    <div class="p-5 bg-teal-50/60 rounded-lg border border-teal-100 hover:shadow-md transition">
+                        <div class="w-12 h-12 bg-teal-600 text-white rounded-lg flex items-center justify-center mb-3 text-xl">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg text-teal-900">Atendimento Humanizado</h3>
+                        <p class="text-slate-600 text-sm mt-1">Acolhimento com respeito, empatia e dedicação ao bem-estar do paciente.</p>
+                    </div>
+                </div>
+
+                <!-- Mídia da Página Principal: Vídeo Institucional / Apresentação -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-film text-teal-600"></i> Conheça Nossa Estrutura
+                    </h3>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md bg-slate-900 flex items-center justify-center relative">
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Vídeo Apresentação Clínica" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SOBRE A CLÍNICA -->
+        <section id="page-sobre" class="page-section space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 border-b pb-3 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-building-user text-teal-600"></i> Nossa História e Propósito
+                </h2>
+                
+                <div class="space-y-4 text-slate-700 leading-relaxed">
+                    <p>
+                        Fundada em 2010, a <strong class="text-teal-800">Clínica Vida & Saúde</strong> nasceu com o objetivo de transformar o conceito de medicina ambulatorial na região. Iniciamos nossas atividades com apenas 3 consultórios e hoje contamos com uma estrutura moderna composta por mais de 15 salas de atendimento, centro cirúrgico ambulatorial e laboratório próprio.
+                    </p>
+                    
+                    <p>
+                        Nosso compromisso é promover a saúde integral, integrando prevenções, tratamentos modernos e acompanhamento contínuo aos nossos pacientes.
+                    </p>
+
+                    <blockquote class="p-4 my-4 border-l-4 border-teal-600 bg-teal-50/50 rounded-r text-slate-700 italic">
+                        "Cuidar do ser humano em sua totalidade, combinando ciência médica avançada, ética inegociável e acolhimento caloroso."
+                        <span class="block mt-2 font-semibold not-italic text-teal-900 text-sm">— Missão Institucional</span>
+                    </blockquote>
+
+                    <h3 class="text-xl font-bold text-teal-900 pt-4 mb-2">Nossos Diferenciais</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700 pl-2">
+                        <li>Equipe médica altamente qualificada e com constante atualização científica;</li>
+                        <li>Ambiente totalmente acessível para pessoas com deficiência ou mobilidade reduzida;</li>
+                        <li>Prontuário eletrônico unificado garantindo segurança das informações;</li>
+                        <li>Amplo estacionamento gratuito no local com manobrista.</li>
+                    </ul>
+                </div>
+
+                <!-- Mídias / Galeria da Clínica -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-images text-teal-600"></i> Ambientes da Clínica
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="rounded-lg overflow-hidden border border-slate-200 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80" alt="Recepção da Clínica" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                            <p class="p-2 text-xs text-center font-medium text-slate-600 bg-slate-50">Recepção Principal</p>
+                        </div>
+                        <div class="rounded-lg overflow-hidden border border-slate-200 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="Consultório Médico" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                            <p class="p-2 text-xs text-center font-medium text-slate-600 bg-slate-50">Consultórios Equipados</p>
+                        </div>
+                        <div class="rounded-lg overflow-hidden border border-slate-200 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Exames Médicos" class="w-full h-48 object-cover hover:scale-105 transition duration-300">
+                            <p class="p-2 text-xs text-center font-medium text-slate-600 bg-slate-50">Salas de Exames</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HORÁRIO DE ATENDIMENTO -->
+        <section id="page-horarios" class="page-section space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 border-b pb-3 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-teal-600"></i> Horários e Quadro de Atendimento
+                </h2>
+                <p class="text-slate-600 mb-6">
+                    Oferecemos horários flexíveis para melhor atender às suas necessidades. Confira abaixo nossa tabela detalhada de atendimentos e consultas por especialidade médica:
+                </p>
+
+                <!-- TABELA DE ATENDIMENTO -->
+                <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-teal-800 text-white text-sm sm:text-base">
+                                <th class="p-3 sm:p-4 font-semibold border-b">Serviços / Especialidades</th>
+                                <th class="p-3 sm:p-4 font-semibold border-b">Segunda a Sexta</th>
+                                <th class="p-3 sm:p-4 font-semibold border-b">Sábados</th>
+                                <th class="p-3 sm:p-4 font-semibold border-b">Feriados</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-sm sm:text-base text-slate-700">
+                            <tr class="hover:bg-teal-50/50 transition">
+                                <td class="p-3 sm:p-4 font-medium text-teal-950 flex items-center gap-2">
+                                    <i class="fa-solid fa-user-doctor text-teal-600 text-xs"></i> Clínica Geral
+                                </td>
+                                <td class="p-3 sm:p-4">08h - 19h</td>
+                                <td class="p-3 sm:p-4">08h - 14h</td>
+                                <td class="p-3 sm:p-4">08h - 14h</td>
+                            </tr>
+                            <tr class="hover:bg-teal-50/50 transition">
+                                <td class="p-3 sm:p-4 font-medium text-teal-950 flex items-center gap-2">
+                                    <i class="fa-solid fa-brain text-teal-600 text-xs"></i> Psicologia
+                                </td>
+                                <td class="p-3 sm:p-4">08h - 19h</td>
+                                <td class="p-3 sm:p-4">08h - 14h</td>
+                                <td class="p-3 sm:p-4">08h - 14h</td>
+                            </tr>
+                            <tr class="hover:bg-teal-50/50 transition">
+                                <td class="p-3 sm:p-4 font-medium text-teal-950 flex items-center gap-2">
+                                    <i class="fa-solid fa-child text-teal-600 text-xs"></i> Pediatria
+                                </td>
+                                <td class="p-3 sm:p-4">08h - 19h</td>
+                                <td class="p-3 sm:p-4">08h - 18h</td>
+                                <td class="p-3 sm:p-4 font-semibold text-slate-400">-</td>
+                            </tr>
+                            <tr class="hover:bg-teal-50/50 transition">
+                                <td class="p-3 sm:p-4 font-medium text-teal-950 flex items-center gap-2">
+                                    <i class="fa-solid fa-eye text-teal-600 text-xs"></i> Oftalmologia
+                                </td>
+                                <td class="p-3 sm:p-4">08h - 19h</td>
+                                <td class="p-3 sm:p-4">08h - 18h</td>
+                                <td class="p-3 sm:p-4 font-semibold text-slate-400">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200 text-amber-800 text-sm flex items-start gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
+                    <div>
+                        <strong>Aviso Importante:</strong> Para exames específicos e emergências, favor confirmar disponibilidade através da nossa central telefônica ou WhatsApp antes do deslocamento.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CONTATO -->
+        <section id="page-contato" class="page-section space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-2xl sm:text-3xl font-bold text-teal-900 border-b pb-3 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-address-book text-teal-600"></i> Canais de Atendimento e Localização
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Informações de Contato e Endereço -->
+                    <div class="space-y-6">
+                        <div class="bg-slate-50 p-5 rounded-lg border border-slate-200 space-y-4">
+                            <h3 class="font-bold text-teal-900 text-lg border-b pb-2">Telefones para Contato</h3>
+                            <div class="flex items-center gap-3 text-slate-700">
+                                <div class="w-10 h-10 bg-teal-100 text-teal-700 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500">Telefone / Celular</p>
+                                    <p class="font-semibold text-slate-800">(11) 3456-7890</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 text-slate-700">
+                                <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500">WhatsApp Central</p>
+                                    <p class="font-semibold text-slate-800">(11) 98765-4321</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-lg border border-slate-200 space-y-2">
+                            <h3 class="font-bold text-teal-900 text-lg border-b pb-2 mb-3">Endereço Completo</h3>
+                            <p class="text-slate-700 flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-teal-600 mt-1"></i>
+                                <span>
+                                    <strong>Clínica Vida & Saúde</strong><br>
+                                    Av. Paulista, 1000 - Bela Vista<br>
+                                    São Paulo - SP, CEP 01310-100
+                                </span>
+                            </p>
+                        </div>
+
+                        <!-- IFRAME DO GOOGLE MAPS -->
+                        <div>
+                            <h3 class="font-bold text-teal-900 text-lg mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot text-teal-600"></i> Localização no Mapa
+                            </h3>
+                            <div class="rounded-lg overflow-hidden border border-slate-300 shadow-sm h-64">
+                                <iframe 
+                                    class="w-full h-full border-0" 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0982228516086!2d-46.65406362375836!3d-23.564903361989457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f228d0e0!2sAv.%20Paulista%2C%201000%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001310-100!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORMULÁRIO DE CONTATO -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <h3 class="text-xl font-bold text-teal-900 mb-4 pb-2 border-b flex items-center gap-2">
+                            <i class="fa-regular fa-paper-plane text-teal-600"></i> Envie uma Mensagem
+                        </h3>
+
+                        <!-- Alerta de Sucesso Simulada -->
+                        <div id="form-alert" class="hidden mb-4 p-4 bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-lg text-sm">
+                            <i class="fa-solid fa-circle-check mr-2"></i> Mensagem enviada com sucesso! Entraremos em contato em breve.
+                        </div>
+
+                        <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div>
+                                <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo *</label>
+                                <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo" class="w-full px-3.5 py-2 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent text-slate-800 text-sm">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail *</label>
+                                <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com" class="w-full px-3.5 py-2 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent text-slate-800 text-sm">
+                            </div>
+
+                            <div>
+                                <label for="assunto" class="block text-sm font-medium text-slate-700 mb-1">Assunto *</label>
+                                <input type="text" id="assunto" name="assunto" required placeholder="Ex: Agendamento de Consulta" class="w-full px-3.5 py-2 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent text-slate-800 text-sm">
+                            </div>
+
+                            <div>
+                                <label for="mensagem" class="block text-sm font-medium text-slate-700 mb-1">Mensagem *</label>
+                                <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Escreva sua mensagem aqui..." class="w-full px-3.5 py-2 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent text-slate-800 text-sm resize-none"></textarea>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                                <button type="submit" class="flex-1 bg-teal-700 hover:bg-teal-800 text-white font-medium py-2.5 px-4 rounded-md transition shadow-sm flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-paper-plane text-xs"></i> Enviar Mensagem
+                                </button>
+                                <button type="reset" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium rounded-md transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-rotate-left text-xs"></i> Limpar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER GLOBAL -->
+    <footer class="bg-slate-900 text-slate-300 mt-auto border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-hospital-user text-teal-400"></i> Clínica Vida & Saúde
+                    </h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Compromisso total com a sua saúde e qualidade de vida. Atendimento médico especializado e humanizado.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-3">Contato Rápido</h4>
+                    <ul class="text-sm space-y-2 text-slate-400">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-teal-400 w-4"></i> (11) 3456-7890
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-teal-400 w-4"></i> (11) 98765-4321
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-teal-400 w-4"></i> contato@vidaesaude.com.br
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-lg font-semibold mb-3">Endereço</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Av. Paulista, 1000 - Bela Vista<br>
+                        São Paulo - SP, 01310-100<br>
+                        <span class="text-xs text-slate-500">(Próximo à estação do Metrô)</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+                <p>&copy; 2026 Clínica Médica Vida & Saúde. Todos os direitos reservados. Desafio DIO - Módulo de HTML.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA DE INTERAÇÃO NAVEGAÇÃO E FORMULÁRIO -->
+    <script>
+        // Função para navegação entre as páginas
+        function navigateTo(pageId) {
+            // Oculta todas as seções
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Oculta todos os cabeçalhos/banners
+            document.querySelectorAll('.header-banner').forEach(banner => {
+                banner.classList.add('hidden');
+            });
+
+            // Exibe a seção selecionada
+            const selectedSection = document.getElementById(`page-${pageId}`);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+
+            // Exibe o header correspondente à página
+            const selectedHeader = document.getElementById(`header-${pageId}`);
+            if (selectedHeader) {
+                selectedHeader.classList.remove('hidden');
+            }
+
+            // Atualiza o estado dos botões de navegação
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-amber-400');
+                btn.classList.add('border-transparent');
+            });
+
+            const activeBtn = document.getElementById(`btn-${pageId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-transparent');
+                activeBtn.classList.add('border-amber-400');
+            }
+
+            // Fecha o menu mobile se estiver aberto
+            const navMenu = document.getElementById('nav-menu');
+            if (!navMenu.classList.contains('hidden') && window.innerWidth < 768) {
+                navMenu.classList.add('hidden');
+            }
+
+            // Rola para o topo suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle do Menu Mobile
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('hidden');
+        }
+
+        // Manipulação do Formulário de Contato
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById('form-alert');
+            alertBox.classList.remove('hidden');
+            
+            // Reseta os campos do formulário
+            document.getElementById('contact-form').reset();
+
+            // Esconde o alerta após 5 segundos
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
